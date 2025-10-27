@@ -71,6 +71,8 @@ class TableList extends React.Component {
     });
   }
   render() {
+    let a =123
+    console.log('renders');
     return (
       <div className={style["tab-choose"]}>
         <div
@@ -96,6 +98,16 @@ class TableList extends React.Component {
         <div>{this.showContent()}</div>
       </div>
     );
+  }
+  componentDidMount() {
+    // 发页面初始化数据请求
+    console.log('didmount');
+  }
+  componentDidUpdate() {
+    console.log('componentDidUpdate');
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    return true;
   }
 }
 export default TableList;
