@@ -1,0 +1,12 @@
+.tab-choose{
+  overflow: hidden;
+}
+
+.tab{
+  float: left;
+  width: 50%;
+}
+
+.tab-on{
+  background-color: #9c5757;
+}

@@ -1,5 +1,6 @@
 // classs 组件
 import React from "react";
+import style from "./tableList.module.css";
 class TableList extends React.Component {
   constructor(prop) {
     super(prop);
@@ -71,9 +72,27 @@ class TableList extends React.Component {
   }
   render() {
     return (
-      <div>
-        <div onClick={this.changeTab.bind(this, 0)}>库存</div>
-        <div onClick={this.changeTab.bind(this, 1)}>商品</div>
+      <div className={style["tab-choose"]}>
+        <div
+          className={
+            this.state.tabChannel === 0
+              ? `${style["tab-on"]} ${style.tab}`
+              : style.tab
+          }
+          onClick={this.changeTab.bind(this, 0)}
+        >
+          库存
+        </div>
+        <div
+          className={
+            this.state.tabChannel === 1
+              ? `${style["tab-on"]} ${style.tab}`
+              : style.tab
+          }
+          onClick={this.changeTab.bind(this, 1)}
+        >
+          商品
+        </div>
         <div>{this.showContent()}</div>
       </div>
     );
