@@ -1,10 +1,22 @@
-// classs 组件
+// 1.表单操作 表示双向绑定
+// 2.watch监听
+// 3.computed
+
 import React from "react";
 import style from "./tableList.module.css";
 class TableList extends React.Component {
   constructor(prop) {
     super(prop);
+    this.allLength = 0;
     this.state = {
+      // 控制添加表单
+      addGoodsForm: false,
+      // 表单数据
+      goodsInfo: {
+        goodsName: "",
+        stock: 0,
+      },
+
       tabChannel: 0,
       arr1: [
         { goodsName: "电脑", stock: 100 },
@@ -16,16 +28,46 @@ class TableList extends React.Component {
         { goodsName: "yyy手机", price: 1900 },
         { goodsName: "zzz平板", price: 4000 },
       ],
+      addGoodsPop: false,
     };
+    this.showGoodsPop = this.showGoodsPop.bind(this);
+    this.closeGoodsPop = this.closeGoodsPop.bind(this);
+    this.confirmGoods = this.confirmGoods.bind(this);
+    this.addGoodsPopConfirm = this.addGoodsPopConfirm.bind(this);
+    this.goodsNameChange = this.goodsNameChange.bind(this);
+    this.stockChange = this.stockChange.bind(this);
+    this.hiddenGoodsPop = this.hiddenGoodsPop.bind(this);
+  }
+
+  closeGoodsPop() {
+    this.setState({
+      addGoodsPop: false,
+    });
+  }
+  confirmGoods() {
+    this.setState({
+      addGoodsPop: false,
+    });
+  }
+  get allLength() {
+    return this.state.arr1.length + this.state.arr2.length;
+  }
+  set allLength(value) {
+    return false;
   }
   changeTab(num) {
-    this.setState({
-      tabChannel: num,
-    });
+    this.setState(
+      {
+        tabChannel: num,
+      },
+      () => {}
+    );
+    console.log(this.state.tabChannel);
   }
   contentOne() {
     let _content = (
       <div>
+        <button onClick={this.showGoodsPop}>添加商品</button>
         {this.state.arr1.map((item) => {
           return (
             <div key={item.goodsName}>
@@ -70,10 +112,66 @@ class TableList extends React.Component {
       arr2: _arr,
     });
   }
+  // 显示添加表单
+  showAddGoodsPop() {
+    this.setState({
+      addGoodsPop: true,
+    });
+  }
+
+  showGoodsPop() {
+    this.setState({
+      addGoodsPop: true,
+    });
+  }
+
+  // 隐藏添加表单
+  hiddenAddGoodsForm() {
+    this.setState({
+      addGoodsForm: false,
+    });
+  }
+
+  addGoodsPopConfirm() {
+    this.setState((prevState) => ({
+      arr1: [...prevState.arr1, { ...prevState.goodsInfo }],
+      goodsInfo: {
+        goodsName: "",
+        stock: 0,
+      },
+      addGoodsPop: false,
+    }));
+  }
+
+  goodsNameChange(e) {
+    const value = e.target.value;
+    this.setState((prevState) => ({
+      goodsInfo: {
+        ...prevState.goodsInfo,
+        goodsName: value,
+      },
+    }));
+  }
+
+  stockChange(e) {
+    const value = e.target.value;
+    this.setState((prevState) => ({
+      goodsInfo: {
+        ...prevState.goodsInfo,
+        stock: value,
+      },
+    }));
+  }
+
+  hiddenGoodsPop() {
+    this.setState({
+      addGoodsPop: false,
+    });
+  }
   render() {
-    let a =123
-    console.log('renders');
     return (
+      <div>
+        <div>{this.allLength}</div>
       <div className={style["tab-choose"]}>
         <div
           className={
@@ -96,15 +194,40 @@ class TableList extends React.Component {
           商品
         </div>
         <div>{this.showContent()}</div>
+        {this.state.addGoodsPop ? (
+          <div className={style["add-goods-pop"]}>
+            <h1>添加商品</h1>
+            <div>
+              <label>货品名字</label>
+              <input
+                value={this.state.goodsInfo.goodsName}
+                onChange={this.goodsNameChange}
+              />
+            </div>
+            <div>
+              <label>库存</label>
+              <input
+                value={this.state.goodsInfo.stock}
+                onChange={this.stockChange}
+              />
+            </div>
+            <div>
+              <button onClick={this.addGoodsPopConfirm}>确认</button>
+              <button onClick={this.hiddenGoodsPop}>取消</button>
+            </div>
+          </div>
+        ) : null}
+      </div>
       </div>
     );
   }
+
   componentDidMount() {
     // 发页面初始化数据请求
-    console.log('didmount');
+    console.log("didmount");
   }
   componentDidUpdate() {
-    console.log('componentDidUpdate');
+    console.log("componentDidUpdate");
   }
   shouldComponentUpdate(nextProps, nextState) {
     return true;

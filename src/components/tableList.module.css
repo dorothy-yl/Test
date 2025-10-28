@@ -10,3 +10,14 @@
 .tab-on{
   background-color: #9c5757;
 }
+
+.hidden {
+  display: none;
+}
+
+.add-goods-pop {
+  border: 1px solid #d8d8d8;
+  padding: 16px;
+  display: inline-block;
+  margin-top: 16px;
+}
