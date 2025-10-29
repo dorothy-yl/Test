@@ -16,8 +16,15 @@ function App() {
         <Menu menuArr={menuArr}></Menu>
         <Routes>
           {
-            routeArr.map((item, index) => {
-              return <Route path={item.path} element={<item.element />}></Route>
+            routeArr.map((item) => {
+              const childRoutes = Array.isArray(item.children) ? item.children : [];
+              return (
+                <Route
+                  key={item.path}
+                  path={item.path}
+                  element={<item.element children={childRoutes} />}
+                />
+              )
             })
           }
         </Routes>
