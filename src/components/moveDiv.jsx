@@ -36,7 +36,9 @@ class MoveDiv extends React.Component {
                 stylePop: {
                     left: e.clientX - this.state.disTance.disX,
                     top: e.clientY - this.state.disTance.disY,
-                }
+                },
+            },()=>{
+                this.props.moveAction(this.state.stylePop.left,this.state.stylePop.top)
             })
         }
     }
@@ -50,6 +52,7 @@ class MoveDiv extends React.Component {
         })
     }
     render() {
+        console.log(this.props.children)
         return (
             <div className="movediv"
                 onMouseDown={this.ready}
@@ -60,7 +63,9 @@ class MoveDiv extends React.Component {
                 }
                 ref={this.movediv}
             >
-                移动我
+                {this.props.input1("i am input1")}
+                {this.props.input2("i am input2")}
+                {this.props.text}
             </div >
         );
     }
