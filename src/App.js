@@ -1,28 +1,27 @@
-import logo from "./logo.svg";
-import "./App.css";
-import MoveDiv from "./components/moveDiv";
-import { useState } from "react";
+import logo from './logo.svg';
+import './App.css';
+import Menu from "./components/menu.jsx"
+import { useState } from "react"
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import routeArr from "./route"
 function App() {
-  const [text, setText] = useState("i am a");
-  const [placeholder1,setPlaceholder1] = useState("请输入账号");
-  function moveAction(left, top) {
-    setText(left, top);
-  }
-  function input1(placeholder) {
-    return <input placeholder={placeholder} />;
-  }
-  function input2(placeholder) {
-    return <input placeholder={placeholder} />;
-  }
-
+  let menuArr = [
+    { menuName: "首页", path: "/" },
+    { menuName: "second", path: "/second" },
+    { menuName: "third", path: "/third" }
+  ]
   return (
-    <div className="App tab-choose ">
-      <MoveDiv
-        moveAction={moveAction}
-        input1={input1}
-        input2={input2}
-        text={text}
-      ></MoveDiv>
+    <div className="App">
+      <BrowserRouter>
+        <Menu menuArr={menuArr}></Menu>
+        <Routes>
+          {
+            routeArr.map((item, index) => {
+              return <Route path={item.path} element={<item.element />}></Route>
+            })
+          }
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }

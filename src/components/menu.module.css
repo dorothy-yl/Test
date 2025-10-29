@@ -1,0 +1,19 @@
+.menucontent {
+    overflow: hidden;
+}
+
+.menu-item {
+    width: 33%;
+    height: 40px;
+    float: left;
+}
+
+.menu-on {
+    background-color: red;
+
+    color: white;
+}
+
+.active {
+    color: white;
+}
