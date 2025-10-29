@@ -3,11 +3,14 @@
 // 3.computed
 
 import React from "react";
+import { CSSTransition } from "react-transition-group";
 import style from "./tableList.module.css";
+import "./transition.css";
 class TableList extends React.Component {
   constructor(prop) {
     super(prop);
     this.allLength = 0;
+    this.addGoodsPopRef = React.createRef();
     this.state = {
       // 控制添加表单
       addGoodsForm: false,
@@ -181,8 +184,14 @@ class TableList extends React.Component {
           商品
         </div>
         <div>{this.showContent()}</div>
-        {this.state.addGoodsPop ? (
-          <div className={style["add-goods-pop"]}>
+        <CSSTransition
+          in={this.state.addGoodsPop}
+          timeout={1000}
+          classNames="addGoods"
+          unmountOnExit
+          nodeRef={this.addGoodsPopRef}
+        >
+          <div className={style["add-goods-pop"]} ref={this.addGoodsPopRef}>
             <h1>添加商品</h1>
             <div>
               <label>货品名字</label>
@@ -203,7 +212,7 @@ class TableList extends React.Component {
               <button onClick={this.hiddenGoodsPop}>取消</button>
             </div>
           </div>
-        ) : null}
+        </CSSTransition>
       </div>
       </div>
     );
