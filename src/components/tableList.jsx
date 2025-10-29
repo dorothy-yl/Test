@@ -18,16 +18,7 @@ class TableList extends React.Component {
       },
 
       tabChannel: 0,
-      arr1: [
-        { goodsName: "电脑", stock: 100 },
-        { goodsName: "手机", stock: 100 },
-        { goodsName: "平板", stock: 100 },
-      ],
-      arr2: [
-        { goodsName: "xxx电脑", price: 1200 },
-        { goodsName: "yyy手机", price: 1900 },
-        { goodsName: "zzz平板", price: 4000 },
-      ],
+  
       addGoodsPop: false,
     };
     this.showGoodsPop = this.showGoodsPop.bind(this);
@@ -50,7 +41,7 @@ class TableList extends React.Component {
     });
   }
   get allLength() {
-    return this.state.arr1.length + this.state.arr2.length;
+    return this.props.arr1.length + this.props.arr2.length;
   }
   set allLength(value) {
     return false;
@@ -68,7 +59,7 @@ class TableList extends React.Component {
     let _content = (
       <div>
         <button onClick={this.showGoodsPop}>添加商品</button>
-        {this.state.arr1.map((item) => {
+        {this.props.arr1.map((item) => {
           return (
             <div key={item.goodsName}>
               <span>{item.goodsName}</span>
@@ -83,7 +74,7 @@ class TableList extends React.Component {
   contentTwo() {
     let _content = (
       <div>
-        {this.state.arr2.map((item) => {
+        {this.props.arr2.map((item) => {
           return (
             <div key={item.goodsName}>
               <span>{item.goodsName}</span>
@@ -133,14 +124,10 @@ class TableList extends React.Component {
   }
 
   addGoodsPopConfirm() {
-    this.setState((prevState) => ({
-      arr1: [...prevState.arr1, { ...prevState.goodsInfo }],
-      goodsInfo: {
-        goodsName: "",
-        stock: 0,
-      },
-      addGoodsPop: false,
-    }));
+    var _obj = this.state.goodsInfo;
+    var _arr = this.props.arr1;
+    _arr.push(_obj);
+    this.props.setArr1([..._arr]);
   }
 
   goodsNameChange(e) {
@@ -154,7 +141,7 @@ class TableList extends React.Component {
   }
 
   stockChange(e) {
-    const value = e.target.value;
+    const value = e.target.value - 0;
     this.setState((prevState) => ({
       goodsInfo: {
         ...prevState.goodsInfo,
