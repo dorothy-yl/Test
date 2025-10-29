@@ -1,0 +1,6 @@
+.movediv {
+    width: 100px;
+    height: 100px;
+    position: fixed;
+    border: 1px solid red;
+}
